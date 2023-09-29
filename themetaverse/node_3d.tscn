@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpipbf71d0j71"]
+
+[ext_resource type="Script" path="res://wall.gd" id="1_gprnd"]
+[ext_resource type="Script" path="res://tank1.gd" id="1_rhj3c"]
+[ext_resource type="PackedScene" uid="uid://c6xhwirvnwrnp" path="res://brick.tscn" id="3_r2uin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ah5d3"]
+albedo_color = Color(0.254902, 1, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fe4is"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hafv2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lld2g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kn20a"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="groung" type="MeshInstance3D" parent="DirectionalLight3D"]
+transform = Transform3D(-98.8005, -1.7e-06, -57.0425, -49.4003, 57.0425, 85.5638, 28.5212, 98.8005, -49.4002, -0.0551152, 0.0826728, -0.0477312)
+material_override = SubResource("StandardMaterial3D_ah5d3")
+mesh = SubResource("PlaneMesh_fe4is")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DirectionalLight3D/groung"]
+transform = Transform3D(1, 1.77636e-15, -8.88178e-16, -1.16827e-24, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DirectionalLight3D/groung/StaticBody3D"]
+transform = Transform3D(1, -1.77636e-15, 8.88178e-16, -1.16827e-24, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_hafv2")
+
+[node name="tank" type="CharacterBody3D" parent="."]
+transform = Transform3D(25.9602, 0, 0, 0, 25.9602, 0, 0, 0, 25.9602, 0, 0, 95.4816)
+script = ExtResource("1_rhj3c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="tank"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_lld2g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tank"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_kn20a")
+
+[node name="Camera3D" type="Camera3D" parent="tank"]
+transform = Transform3D(0.0385205, 0, 0, 0, 0.0385205, 0, 0, 0, 0.0385205, 0, 0.146654, 0.0929372)
+
+[node name="wall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 34.6447, -5.475)
+script = ExtResource("1_gprnd")
+width = 100
+brickScene = ExtResource("3_r2uin")
