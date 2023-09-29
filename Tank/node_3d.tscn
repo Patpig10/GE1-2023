@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c442l5k0lp0x1"]
+
+[ext_resource type="Script" path="res://tank.gd" id="1_6ex8s"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vb8i7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5kx7h"]
+albedo_color = Color(0.0941176, 1, 0.160784, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o3cn2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fskij"]
+size = Vector3(0.312572, 0.212127, 0.317943)
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_us0ri"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wsj7u"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.920505, 0.220187, -0.322782, 0, 0.826098, 0.563526, 0.390731, 0.518728, -0.760427, 0, 21.4109, 0)
+shadow_enabled = true
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(35.925, 0, 0, 0, 35.925, 0, 0, 0, 35.925, -0.0400605, -0.00594521, 0.0255859)
+mesh = SubResource("PlaneMesh_vb8i7")
+surface_material_override/0 = SubResource("StandardMaterial3D_5kx7h")
+
+[node name="tank" type="CharacterBody3D" parent="ground"]
+transform = Transform3D(0.23, 0, 0, 0, 0.23, 0, 0, 0, 0.23, -0.426052, 0, 0.359125)
+script = ExtResource("1_6ex8s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground/tank"]
+transform = Transform3D(0.24, 0, 0, 0, 0.24, 0, 0, 0, 0.24, 0, 0.141745, 0)
+mesh = SubResource("BoxMesh_o3cn2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.155905, 0)
+shape = SubResource("BoxShape3D_fskij")
+
+[node name="turrent" type="CharacterBody3D" parent="ground/tank"]
+transform = Transform3D(0.976672, 0, 0.214735, 0, 1, 0, -0.214735, 0, 0.976672, 0, 0, -0.02)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground/tank/turrent"]
+transform = Transform3D(0.0312879, 0.334016, 0.000447849, 0.0062079, -0.00333047, -0.144814, -0.120862, 0.0862969, -0.00732226, -0.125, 0.275, 0)
+mesh = SubResource("TubeTrailMesh_us0ri")
+
+[node name="Camera3D" type="Camera3D" parent="ground/tank"]
+transform = Transform3D(0.0326261, -0.0502637, 0.105148, -0.0248452, 0.103681, 0.0572714, -0.113865, -0.0370251, 0.0176319, 0.477039, 0.860141, 0.169379)
+fov = 98.4375
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+shape = SubResource("ConcavePolygonShape3D_wsj7u")
