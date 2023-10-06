@@ -54,11 +54,11 @@ turn_right={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false
+
 [rendering]
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-
-[xr]
-
-openxr/enabled=true
